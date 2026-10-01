@@ -1,0 +1,6 @@
+"use client";
+import {useEffect,useState} from "react";import {useParams,useRouter} from "next/navigation";import {supabase} from "../../../lib/supabase";
+export default function Movie(){const {id}=useParams<{id:string}>();const router=useRouter();const [m,setM]=useState<any>();const [name,setName]=useState("");const [busy,setBusy]=useState(false);
+useEffect(()=>{supabase.from("movies").select("*").eq("id",id).single().then(({data})=>setM(data));},[id]);
+async function create(){setBusy(true);const {data:{user}}=await supabase.auth.getUser();if(!user){router.push("/login");return}const {data:r,error}=await supabase.from("rooms").insert({name:name||m.title+" room",movie_id:m.id,owner_id:user.id}).select().single();if(!error&&r){await supabase.from("room_members").upsert({room_id:r.id,user_id:user.id});router.push("/room/"+r.id)}setBusy(false)}
+if(!m)return <div className="empty">Loading...</div>;return <div className="detail">{m.poster_url&&<img src={m.poster_url} alt=""/>}<div><p className="eyebrow">{m.genre||"MOVIE"}</p><h1>{m.title}</h1><p>{m.description}</p><p className="muted">{m.year||""} {m.duration?"· "+m.duration+" min":""}</p><input placeholder="Room name (optional)" value={name} onChange={e=>setName(e.target.value)}/><button className="button" disabled={busy} onClick={create}>{busy?"Creating...":"Create watch room"}</button></div></div>}
