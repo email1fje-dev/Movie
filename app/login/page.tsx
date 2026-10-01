@@ -1,5 +1,3 @@
 "use client";
-import {useState} from "react";import {supabase} from "../../lib/supabase";import {useRouter} from "next/navigation";
-export default function Login(){const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [signup,setSignup]=useState(false);const [msg,setMsg]=useState("");const router=useRouter();
-async function submit(){setMsg("");const r=signup?await supabase.auth.signUp({email,password}):await supabase.auth.signInWithPassword({email,password});if(r.error){setMsg(r.error.message);return}if(signup&&!r.data.session){setMsg("Check your email to confirm your account.");return}router.push("/")}
-return <div className="auth"><div className="panel"><p className="eyebrow">MOVIE NIGHT</p><h1>{signup?"Create account":"Welcome back"}</h1><input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}/><input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)}/><button className="button" onClick={submit}>{signup?"Sign up":"Login"}</button>{msg&&<p className="notice">{msg}</p>}<button className="linkbtn" onClick={()=>setSignup(!signup)}>{signup?"Already have an account? Login":"Need an account? Sign up"}</button></div></div>}
+import {useEffect} from "react";import {useRouter} from "next/navigation";
+export default function Login(){const router=useRouter();useEffect(()=>router.replace("/"),[router]);return <div className="empty">Opening Movie Night...</div>}
