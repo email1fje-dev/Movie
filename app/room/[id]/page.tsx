@@ -216,6 +216,36 @@ export default function Room() {
     roomRef.current = room;
   }, [room]);
 
+  function formatTime(value: number) {
+    if (!Number.isFinite(value) || value < 0) return "0:00";
+    const total = Math.floor(value);
+    const hours = Math.floor(total / 3600);
+    const minutes = Math.floor((total % 3600) / 60);
+    const seconds = total % 60;
+    return hours > 0
+      ? `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+      : `${minutes}:${String(seconds).padStart(2, "0")}`;
+  }
+
+  function togglePlay() {
+    const v = video.current;
+    if (!v || !isHost) return;
+    if (v.paused) v.play().catch(() => {});
+    else v.pause();
+  }
+
+  function toggleMute() {
+    const v = video.current;
+    if (v) v.muted = !v.muted;
+  }
+
+  function fullscreen() {
+    const el = video.current?.closest(".player-shell") as HTMLElement | null;
+    if (!el) return;
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    else el.requestFullscreen?.().catch(() => {});
+  }
+
   function loaded() {
     const current = roomRef.current;
 
@@ -297,29 +327,71 @@ export default function Room() {
           </span>
         </div>
 
-        <div className="player-shell">
+        <div className={`player-shell ${isHost ? "is-host" : "is-viewer"}`}>
+          <div className="player-topbar">
+            <span className="player-status"><i /> LIVE SYNC</span>
+            <span className="player-movie">{movie.title}</span>
+          </div>
+
           <video
             ref={video}
-            controls={isHost}
+            controls={false}
             src={movie.video_url}
-            onLoadedMetadata={loaded}
-            onPlay={play}
-            onPause={pause}
+            onLoadedMetadata={(e) => {
+              setDuration(e.currentTarget.duration || 0);
+              setCurrentTime(e.currentTarget.currentTime || 0);
+              loaded();
+            }}
+            onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+            onPlay={() => { setIsPlaying(true); play(); }}
+            onPause={() => { setIsPlaying(false); pause(); }}
             onSeeked={seek}
           />
 
+          <div className="player-gradient" />
+
           {!isHost && (
             <div className="viewer-lock">
-              <span>🔒</span>
+              <div className="lock-icon">🔒</div>
               <b>Host controls playback</b>
-              <small>
-                You can watch and chat — playback controls are locked.
-              </small>
-              <button className="sync-btn" onClick={resync}>
-                ↻ Sync now
-              </button>
+              <small>You can watch and chat — playback controls are locked.</small>
+              <button className="sync-btn" onClick={resync}>↻ Sync now</button>
             </div>
           )}
+
+          <div className="custom-controls">
+            <div className="progress-row">
+              <span>{formatTime(currentTime)}</span>
+              <input
+                className="progress"
+                type="range"
+                min="0"
+                max={duration || 0}
+                step="0.1"
+                value={Math.min(currentTime, duration || 0)}
+                disabled={!isHost}
+                onChange={(e) => {
+                  if (!isHost || !video.current) return;
+                  video.current.currentTime = Number(e.target.value);
+                  setCurrentTime(Number(e.target.value));
+                }}
+              />
+              <span>{formatTime(duration)}</span>
+            </div>
+
+            <div className="controls-row">
+              <div className="controls-left">
+                <button className="control-btn play-btn" onClick={togglePlay} disabled={!isHost} aria-label={isPlaying ? "Pause" : "Play"}>
+                  {isPlaying ? "❚❚" : "▶"}
+                </button>
+                <button className="control-btn" onClick={toggleMute} aria-label="Mute or unmute">
+                  🔊
+                </button>
+                <span className="control-label">{isHost ? "HOST CONTROLS" : "VIEWER MODE"}</span>
+              </div>
+              <button className="control-btn" onClick={fullscreen} aria-label="Fullscreen">⛶</button>
+            </div>
+          </div>
         </div>
 
         <div className="player-info">
