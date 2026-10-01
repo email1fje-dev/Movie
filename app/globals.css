@@ -297,3 +297,258 @@ html,body{overflow-x:hidden}
   .movie .button{font-size:11px;padding:8px 5px}
   nav a{font-size:11px;padding:6px 4px}
 }
+
+
+/* ===== Final mobile polish ===== */
+@media (max-width: 800px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  header{
+    height:58px;
+    padding:0 12px;
+    gap:8px;
+  }
+  .brand{
+    font-size:15px;
+    letter-spacing:-.4px;
+  }
+  .brand:after{width:5px;height:5px;margin-left:5px}
+  nav{
+    flex:1;
+    justify-content:flex-end;
+    gap:3px;
+    min-width:0;
+  }
+  nav a{
+    font-size:11px;
+    line-height:1;
+    padding:8px 7px;
+    border-radius:9px;
+  }
+
+  main{
+    width:100%;
+    max-width:none;
+    padding:10px 12px 42px;
+  }
+
+  .hero{
+    display:block;
+    padding:30px 2px 24px;
+  }
+  .hero h1{
+    font-size:clamp(38px,11.5vw,54px);
+    line-height:.98;
+    letter-spacing:-2px;
+    margin:8px 0 15px;
+  }
+  .sub{
+    font-size:14px;
+    line-height:1.55;
+  }
+  .hero-card{
+    margin-top:22px;
+    min-height:125px;
+    padding:20px;
+    border-radius:18px;
+  }
+  .hero-card{font-size:36px}
+  .hero-card b{font-size:13px}
+  .hero-card small{font-size:11px}
+
+  .toolbar{
+    display:block;
+    margin:4px 0 16px;
+    padding:12px;
+    border-radius:15px;
+  }
+  .toolbar h2{
+    font-size:22px;
+    margin:0 0 9px;
+  }
+  .toolbar input{
+    width:100%;
+    height:43px;
+    margin:0;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .movie{
+    border-radius:14px;
+  }
+  .movie-body{
+    padding:10px;
+  }
+  .movie-body h3{
+    font-size:13px;
+    line-height:1.25;
+    margin-bottom:5px;
+  }
+  .movie-body p{
+    font-size:10px;
+    line-height:1.35;
+    margin:4px 0;
+  }
+  .movie .button{
+    min-height:36px;
+    margin-top:8px;
+    padding:7px 5px;
+    font-size:10px;
+    border-radius:9px;
+  }
+
+  .detail{
+    display:block;
+    margin:18px auto;
+  }
+  .detail>img{
+    display:block;
+    width:min(58vw,220px);
+    margin:0 auto 22px;
+    border-radius:15px;
+  }
+  .detail h1{font-size:38px;letter-spacing:-1.7px}
+  .detail p:not(.eyebrow){font-size:14px;line-height:1.6}
+
+  .watch-page{
+    display:block;
+    width:100%;
+    margin:0;
+  }
+  .watch-head{
+    display:block;
+    margin:8px 0 12px;
+  }
+  .watch-head h1{
+    font-size:31px;
+    line-height:1.05;
+    letter-spacing:-1.4px;
+    margin:4px 0 9px;
+  }
+  .room-meta{
+    gap:5px;
+  }
+  .room-meta span{
+    font-size:10px;
+    padding:5px 7px;
+  }
+  .pill{
+    display:inline-flex;
+    margin-top:9px;
+    font-size:10px;
+    padding:7px 10px;
+  }
+
+  .player-shell{
+    width:100%;
+    border-radius:12px!important;
+    box-shadow:0 18px 45px rgba(0,0,0,.42)!important;
+  }
+  .player-shell video{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:16/9;
+    max-height:none;
+    object-fit:contain;
+  }
+  .player-topbar{
+    height:42px!important;
+    padding:8px 9px!important;
+  }
+  .player-status{
+    padding:4px 6px;
+    font-size:7px;
+    letter-spacing:1px;
+  }
+  .player-status i{width:5px;height:5px}
+  .player-movie{
+    max-width:45%;
+    font-size:9px;
+  }
+  .player-gradient{height:78px!important}
+  .custom-controls{
+    padding:0 8px 7px!important;
+  }
+  .progress-row{
+    font-size:8px;
+    gap:5px;
+  }
+  .progress{
+    height:4px!important;
+  }
+  .progress::-webkit-slider-thumb{
+    width:10px;height:10px;
+  }
+  .controls-row{margin-top:5px}
+  .controls-left{gap:5px}
+  .control-btn{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    font-size:11px;
+  }
+  .play-btn{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+  }
+  .player-shell.is-viewer .viewer-lock{
+    right:7px!important;
+    bottom:48px!important;
+    padding:4px 5px!important;
+    border-radius:9px!important;
+    gap:4px;
+  }
+  .player-shell.is-viewer .viewer-lock .lock-icon{
+    width:21px;height:21px;font-size:10px;border-radius:6px;
+  }
+  .player-shell.is-viewer .viewer-lock b{font-size:8px!important}
+  .player-shell.is-viewer .viewer-lock .sync-btn{
+    padding:4px 6px;
+    font-size:8px;
+    border-radius:7px;
+  }
+
+  .player-info{
+    margin-top:9px;
+    padding:11px 12px;
+    border-radius:13px;
+  }
+  .player-info b{font-size:12px}
+  .player-info p{font-size:10px}
+
+  .chat{
+    margin-top:14px;
+    min-height:360px;
+    max-height:none;
+    border-radius:15px;
+    padding:11px;
+    position:static;
+  }
+  .chat h2{font-size:17px}
+  .messages{min-height:220px}
+  .message{padding:8px 9px;border-radius:11px}
+  .message p{font-size:12px}
+  .chatbox input{height:40px}
+  .chatbox button{width:40px}
+
+  .admin-grid{grid-template-columns:1fr;gap:14px}
+  .panel{padding:16px;border-radius:16px}
+  .row{grid-template-columns:1fr}
+}
+
+@media (max-width: 380px){
+  header{padding:0 9px}
+  .brand{font-size:14px}
+  nav a{font-size:10px;padding:7px 5px}
+  main{padding-left:9px;padding-right:9px}
+  .grid{gap:8px}
+  .movie-body{padding:8px}
+  .movie-body h3{font-size:12px}
+  .movie-body p{font-size:9px}
+  .movie .button{font-size:9px}
+  .hero h1{font-size:37px}
+}
