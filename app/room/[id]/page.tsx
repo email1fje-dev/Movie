@@ -24,6 +24,8 @@ export default function Room() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const controlsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isHost = !!room && room.owner_id === uid;
 
@@ -239,11 +241,21 @@ export default function Room() {
     if (v) v.muted = !v.muted;
   }
 
+  function showControls(autoHide = true) {
+    setControlsVisible(true);
+    if (controlsTimer.current) clearTimeout(controlsTimer.current);
+    if (autoHide) {
+      controlsTimer.current = setTimeout(() => setControlsVisible(false), 2200);
+    }
+  }
+
   function fullscreen() {
     const el = video.current?.closest(".player-shell") as HTMLElement | null;
     if (!el) return;
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     else el.requestFullscreen?.().catch(() => {});
+    showControls(true);
+  }
   }
 
   function loaded() {
@@ -327,7 +339,7 @@ export default function Room() {
           </span>
         </div>
 
-        <div className={`player-shell ${isHost ? "is-host" : "is-viewer"}`}>
+        <div\n          className={`player-shell ${isHost ? "is-host" : "is-viewer"} ${controlsVisible ? "controls-visible" : "controls-hidden"}`}\n          onMouseMove={() => showControls(true)}\n          onTouchStart={() => showControls(true)}\n        >
           <div className="player-topbar">
             <span className="player-status"><i /> LIVE SYNC</span>
             <span className="player-movie">{movie.title}</span>
