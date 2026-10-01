@@ -350,14 +350,7 @@ export default function Room() {
 
           <div className="player-gradient" />
 
-          {!isHost && (
-            <div className="viewer-lock">
-              <div className="lock-icon">🔒</div>
-              <b>Host controls playback</b>
-              <small>You can watch and chat — playback controls are locked.</small>
-              <button className="sync-btn" onClick={resync}>↻ Sync now</button>
-            </div>
-          )}
+
 
           <div className="custom-controls">
             <div className="progress-row">
@@ -388,6 +381,7 @@ export default function Room() {
                   🔊
                 </button>
                 <span className="control-label">{isHost ? "HOST CONTROLS" : "VIEWER MODE"}</span>
+                {!isHost && <button className="control-btn sync-mini" onClick={resync} aria-label="Sync now">↻</button>}
               </div>
               <button className="control-btn" onClick={fullscreen} aria-label="Fullscreen">⛶</button>
             </div>
