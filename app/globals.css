@@ -260,3 +260,40 @@ main{max-width:1500px;padding-top:24px}
   .play-btn{width:38px;height:38px}
   .player-shell.is-viewer .viewer-lock{right:9px!important;bottom:58px!important}
 }
+
+
+/* ===== Mobile stability fixes ===== */
+html,body{overflow-x:hidden}
+@media(max-width:800px){
+  main{width:100%;max-width:100%;padding-left:14px;padding-right:14px;overflow:hidden}
+  header{padding-left:14px;padding-right:14px;gap:8px}
+  .brand{font-size:16px;flex-shrink:0}
+  nav{min-width:0;gap:2px}
+  nav a{font-size:12px;padding:7px 6px;white-space:nowrap}
+  .hero{width:100%;grid-template-columns:minmax(0,1fr);overflow:hidden}
+  .hero h1{max-width:100%;overflow-wrap:anywhere}
+  .toolbar{width:100%;box-sizing:border-box;overflow:hidden}
+  .grid{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .movie{min-width:0}
+  .movie img,.poster{width:100%;height:auto}
+  .movie-body{min-width:0}
+  .movie-body h3,.movie-body p{overflow:hidden;text-overflow:ellipsis}
+  .movie-body h3{white-space:nowrap}
+  .movie .button{white-space:nowrap}
+  .watch-page{width:100%;min-width:0}
+  .watch-main{width:100%;min-width:0}
+  .player-shell{width:100%;max-width:100%;overflow:hidden}
+  .player-shell video{width:100%;height:auto}
+  .player-movie{max-width:34%;overflow:hidden;text-overflow:ellipsis}
+  .custom-controls{left:0;right:0;max-width:100%;box-sizing:border-box}
+  .chat{width:100%;min-width:0}
+}
+@media(max-width:390px){
+  main{padding-left:11px;padding-right:11px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .movie-body{padding:9px 8px}
+  .movie-body h3{font-size:13px}
+  .movie-body p{font-size:10px}
+  .movie .button{font-size:11px;padding:8px 5px}
+  nav a{font-size:11px;padding:6px 4px}
+}
