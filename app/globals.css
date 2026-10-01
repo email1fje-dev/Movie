@@ -49,3 +49,8 @@ input,textarea{width:100%;background:#0b0d13;border:1px solid #2b303b;border-rad
 .is-viewer .viewer-lock{opacity:1}
 .lock-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(15,16,24,.76);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);font-size:18px;margin-bottom:9px;box-shadow:0 12px 35px rgba(0,0,0,.35)}
 @media(max-width:800px){.player-shell{border-radius:16px}.player-shell video{max-height:none}.player-topbar{height:50px;padding:12px}.custom-controls{padding:0 11px 10px}.control-label{display:none}.control-btn{width:32px;height:32px}.play-btn{width:36px;height:36px}.progress-row{gap:6px}.player-movie{max-width:38%;font-size:10px}}
+
+/* Viewer mobile-friendly mode: never cover the movie with a lock overlay */
+.viewer-lock{display:none!important}
+.sync-mini{font-size:15px}
+@media(max-width:800px){.custom-controls{opacity:1!important;transform:none!important}.player-shell video{touch-action:manipulation}.sync-mini{width:32px;height:32px}}
