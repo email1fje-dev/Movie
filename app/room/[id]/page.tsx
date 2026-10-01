@@ -21,6 +21,9 @@ export default function Room() {
   const [uid, setUid] = useState("");
   const [viewers, setViewers] = useState(1);
   const [connected, setConnected] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const isHost = !!room && room.owner_id === uid;
 
