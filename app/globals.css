@@ -812,3 +812,58 @@ html,body{overflow-x:hidden}
   .movie .button{font-size:9px}
   .hero h1{font-size:37px}
 }
+
+
+/* Mobile/fullscreen player controls: hide after interaction instead of leaving them stuck after rotation. */
+.player-shell.controls-hidden .custom-controls{
+  opacity:0 !important;
+  transform:translateY(8px) !important;
+  pointer-events:none;
+}
+.player-shell.controls-hidden .player-topbar{
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.player-shell.controls-visible .player-topbar{
+  opacity:1;
+  transition:opacity .2s ease;
+}
+.player-shell:fullscreen{
+  width:100vw;
+  height:100vh;
+  max-width:none;
+  border:0;
+  border-radius:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.player-shell:fullscreen video{
+  width:100vw;
+  height:100vh;
+  max-height:none;
+  aspect-ratio:auto;
+  object-fit:contain;
+}
+.player-shell:fullscreen .custom-controls{
+  bottom:0;
+}
+@media (max-width:800px){
+  .player-shell .custom-controls{
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .2s ease,transform .2s ease;
+  }
+  .player-shell.controls-visible .custom-controls{
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .player-shell.controls-hidden .custom-controls{
+    opacity:0 !important;
+    transform:translateY(8px) !important;
+  }
+  .player-shell:fullscreen .custom-controls{
+    padding:0 14px max(12px, env(safe-area-inset-bottom));
+  }
+}
