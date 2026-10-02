@@ -256,7 +256,17 @@ export default function Room() {
     else el.requestFullscreen?.().catch(() => {});
     showControls(true);
   }
-  }
+
+  useEffect(() => {
+    const refreshControls = () => showControls(true);
+    document.addEventListener("fullscreenchange", refreshControls);
+    window.addEventListener("orientationchange", refreshControls);
+    return () => {
+      document.removeEventListener("fullscreenchange", refreshControls);
+      window.removeEventListener("orientationchange", refreshControls);
+      if (controlsTimer.current) clearTimeout(controlsTimer.current);
+    };
+  }, []);
 
   function loaded() {
     const current = roomRef.current;
@@ -355,6 +365,7 @@ export default function Room() {
               loaded();
             }}
             onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+            onClick={() => showControls(true)}
             onPlay={() => { setIsPlaying(true); play(); }}
             onPause={() => { setIsPlaying(false); pause(); }}
             onSeeked={seek}
