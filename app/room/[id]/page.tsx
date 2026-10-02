@@ -249,6 +249,11 @@ export default function Room() {
     }
   }
 
+  function toggleControls() {
+    if (controlsTimer.current) clearTimeout(controlsTimer.current);
+    setControlsVisible((visible) => !visible);
+  }
+
   function fullscreen() {
     const el = video.current?.closest(".player-shell") as HTMLElement | null;
     if (!el) return;
@@ -365,7 +370,7 @@ export default function Room() {
               loaded();
             }}
             onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-            onClick={() => showControls(true)}
+            onClick={(e) => { e.stopPropagation(); toggleControls(); }}
             onPlay={() => { setIsPlaying(true); play(); }}
             onPause={() => { setIsPlaying(false); pause(); }}
             onSeeked={seek}
@@ -375,7 +380,7 @@ export default function Room() {
 
 
 
-          <div className="custom-controls">
+          <div className="custom-controls" onClick={(e) => e.stopPropagation()}>
             <div className="progress-row">
               <span>{formatTime(currentTime)}</span>
               <input
