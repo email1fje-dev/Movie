@@ -867,3 +867,57 @@ html,body{overflow-x:hidden}
     padding:0 14px max(12px, env(safe-area-inset-bottom));
   }
 }
+
+
+/* ===== Final player interaction fix ===== */
+.player-shell{
+  position:relative;
+  isolation:isolate;
+}
+.player-shell .custom-controls{
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:20 !important;
+  width:100% !important;
+  margin:0 !important;
+  pointer-events:auto;
+}
+.player-shell.controls-hidden .custom-controls{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transform:translateY(10px) !important;
+}
+.player-shell.controls-visible .custom-controls{
+  opacity:1 !important;
+  visibility:visible !important;
+  transform:translateY(0) !important;
+}
+.player-shell.controls-hidden .player-topbar{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+.player-shell.controls-visible .player-topbar{
+  opacity:1;
+  visibility:visible;
+}
+.player-shell video{
+  touch-action:manipulation;
+}
+@media (max-width:800px){
+  .player-shell .custom-controls{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+  }
+  .player-shell.controls-hidden .custom-controls{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}
